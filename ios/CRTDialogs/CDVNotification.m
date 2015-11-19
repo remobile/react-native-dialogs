@@ -6,9 +6,9 @@
  to you under the Apache License, Version 2.0 (the
  "License"); you may not use this file except in compliance
  with the License.  You may obtain a copy of the License at
-
+ 
  http://www.apache.org/licenses/LICENSE-2.0
-
+ 
  Unless required by applicable law or agreed to in writing,
  software distributed under the License is distributed on an
  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -139,40 +139,40 @@ RCT_EXPORT_MODULE(Dialogs)
 }
 
 RCT_EXPORT_METHOD(alert:(NSArray *)args success:(RCTResponseSenderBlock)success) {
-		CDVCommandDelegateImpl* commandDelegate = [[CDVCommandDelegateImpl alloc]initWithCallback:success error:nil];
+    CDVCommandDelegateImpl* commandDelegate = [[CDVCommandDelegateImpl alloc]initWithCallback:success error:nil];
     NSString* message = args[0];
     NSString* title = args[1];
     NSString* buttons = args[2];
-
+    
     [self showDialogWithMessage:message title:title buttons:@[buttons] defaultText:nil commandDelegate:commandDelegate dialogType:DIALOG_TYPE_ALERT];
 }
 RCT_EXPORT_METHOD(confirm:(NSArray *)args success:(RCTResponseSenderBlock)success) {
-		CDVCommandDelegateImpl* commandDelegate = [[CDVCommandDelegateImpl alloc]initWithCallback:success error:nil];
+    CDVCommandDelegateImpl* commandDelegate = [[CDVCommandDelegateImpl alloc]initWithCallback:success error:nil];
     NSString* message = args[0];
     NSString* title = args[1];
     NSArray* buttons = args[2];
-
+    
     [self showDialogWithMessage:message title:title buttons:buttons defaultText:nil commandDelegate:commandDelegate dialogType:DIALOG_TYPE_ALERT];
 }
 
 RCT_EXPORT_METHOD(prompt:(NSArray *)args success:(RCTResponseSenderBlock)success) {
-		CDVCommandDelegateImpl* commandDelegate = [[CDVCommandDelegateImpl alloc]initWithCallback:success error:nil];
+    CDVCommandDelegateImpl* commandDelegate = [[CDVCommandDelegateImpl alloc]initWithCallback:success error:nil];
     NSString* message = args[0];
     NSString* title = args[1];
     NSArray* buttons = args[2];
     NSString* defaultText = args[3];
-
+    
     [self showDialogWithMessage:message title:title buttons:buttons defaultText:defaultText commandDelegate:commandDelegate dialogType:DIALOG_TYPE_PROMPT];
 }
 
 /**
-  * Callback invoked when an alert dialog's buttons are clicked.
-  */
+ * Callback invoked when an alert dialog's buttons are clicked.
+ */
 - (void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     CDVAlertView* cdvAlertView = (CDVAlertView*)alertView;
     CDVPluginResult* result;
-
+    
     // Determine what gets returned to JS based on the alert view type.
     if (alertView.alertViewStyle == UIAlertViewStyleDefault) {
         // For alert and confirm, return button index as int back to JS.
@@ -181,9 +181,9 @@ RCT_EXPORT_METHOD(prompt:(NSArray *)args success:(RCTResponseSenderBlock)success
         // For prompt, return button index and input text back to JS.
         NSString* value0 = [[alertView textFieldAtIndex:0] text];
         NSDictionary* info = @{
-            @"buttonIndex":@(buttonIndex + 1),
-            @"input1":(value0 ? value0 : [NSNull null])
-        };
+                               @"buttonIndex":@(buttonIndex + 1),
+                               @"input1":(value0 ? value0 : [NSNull null])
+                               };
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:info];
     }
     [cdvAlertView.commandDelegate sendPluginResult:result];
@@ -193,11 +193,11 @@ static void playBeep(int count) {
     SystemSoundID completeSound;
     NSInteger cbDataCount = count;
     NSURL* audioPath = [[NSBundle mainBundle] URLForResource:@"CDVNotification.bundle/beep" withExtension:@"wav"];
-    #if __has_feature(objc_arc)
-        AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &completeSound);
-    #else
-        AudioServicesCreateSystemSoundID((CFURLRef)audioPath, &completeSound);
-    #endif
+#if __has_feature(objc_arc)
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &completeSound);
+#else
+    AudioServicesCreateSystemSoundID((CFURLRef)audioPath, &completeSound);
+#endif
     AudioServicesAddSystemSoundCompletion(completeSound, NULL, NULL, soundCompletionCallback, (void*)(cbDataCount-1));
     AudioServicesPlaySystemSound(completeSound);
 }

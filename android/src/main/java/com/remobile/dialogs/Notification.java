@@ -27,7 +27,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -57,27 +56,19 @@ public class Notification extends ReactContextBaseJavaModule {
     public ProgressDialog progressDialog = null;
 
     public static String FLOG_TAG = "RCTDialogs";
-    private Context mActivityContext;
+    private Activity activity;
     private ExecutorService threadPool;
 
-    public Notification(ReactApplicationContext reactContext, Context activityContext) {
+    public Notification(ReactApplicationContext reactContext, Activity activity) {
         super(reactContext);
-        mActivityContext = activityContext;
+        this.activity = activity;
         threadPool = Executors.newCachedThreadPool();
     }
 
     @Override
-    public String getName() {
-        return "Dialogs";
-    }
-
-    protected ExecutorService getThreadPool() {
-        return threadPool;
-    }
-
-    protected Activity getActivity() {
-        return (Activity) mActivityContext;
-    }
+    public String getName() { return "Dialogs"; }
+    protected ExecutorService getThreadPool() { return threadPool; }
+    protected Activity getActivity() { return  activity; }
 
     @ReactMethod
     public void beep(ReadableArray args) {

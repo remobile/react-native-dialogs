@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import android.content.Context;
+import android.app.Activity;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;
@@ -15,18 +15,18 @@ import com.facebook.react.uimanager.ViewManager;
 
 public class RCTDialogsPackage implements ReactPackage {
 
-    private Context mContext;
+    private Activity activity;
     private Notification mModuleInstance;
 
-    public RCTDialogsPackage(Context ctx) {
+    public RCTDialogsPackage(Activity activity) {
         super();
-        mContext = ctx;
+        this.activity = activity;
     }
 
 
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-        mModuleInstance = new Notification(reactContext, mContext);
+        mModuleInstance = new Notification(reactContext, activity);
         return Arrays.<NativeModule>asList(
                 mModuleInstance
         );
