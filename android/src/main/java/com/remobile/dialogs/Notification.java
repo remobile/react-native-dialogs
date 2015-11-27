@@ -38,9 +38,6 @@ import com.facebook.common.logging.FLog;
 import com.remobile.cordova.*;
 import com.facebook.react.bridge.*;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 /**
  * This class provides access to notifications on the device.
  * <p>
@@ -49,26 +46,21 @@ import java.util.concurrent.Executors;
  * implementation in org.apache.cordova.CordovaChromeClient that gets
  * called on a simple window.{alert|confirm|prompt}.
  */
-public class Notification extends ReactContextBaseJavaModule {
+public class Notification extends CordovaPlugin {
 
     public int confirmResult = -1;
     public ProgressDialog spinnerDialog = null;
     public ProgressDialog progressDialog = null;
 
     public static String FLOG_TAG = "RCTDialogs";
-    private Activity activity;
-    private ExecutorService threadPool;
 
     public Notification(ReactApplicationContext reactContext, Activity activity) {
         super(reactContext);
-        this.activity = activity;
-        threadPool = Executors.newCachedThreadPool();
+        this.cordova.setActivity(activity);
     }
 
     @Override
     public String getName() { return "Dialogs"; }
-    protected ExecutorService getThreadPool() { return threadPool; }
-    protected Activity getActivity() { return  activity; }
 
     @ReactMethod
     public void beep(ReadableArray args) {
@@ -175,7 +167,7 @@ public class Notification extends ReactContextBaseJavaModule {
     	 * crashing the app. Just return true here since false should only
     	 * be returned in the event of an invalid action.
     	 */
-        if (this.getActivity().isFinishing()) return true;
+        if (this.cordova.getActivity().isFinishing()) return true;
 
         if (action.equals("beep")) {
             this.beep(args.getLong(0));
@@ -217,8 +209,8 @@ public class Notification extends ReactContextBaseJavaModule {
      * @param count Number of times to play notification
      */
     public void beep(final long count) {
-        final Activity activity = this.getActivity();
-        this.getThreadPool().execute(new Runnable() {
+        final Activity activity = this.cordova.getActivity();
+        this.cordova.getThreadPool().execute(new Runnable() {
             public void run() {
                 Uri ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                 Ringtone notification = RingtoneManager.getRingtone(activity.getBaseContext(), ringtone);
@@ -253,7 +245,7 @@ public class Notification extends ReactContextBaseJavaModule {
         Runnable runnable = new Runnable() {
             public void run() {
 
-                AlertDialog.Builder dlg = createDialog(); // new AlertDialog.Builder(this.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+                AlertDialog.Builder dlg = createDialog(); // new AlertDialog.Builder(this.cordova.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
                 dlg.setMessage(message);
                 dlg.setTitle(title);
                 dlg.setCancelable(false);
@@ -276,7 +268,7 @@ public class Notification extends ReactContextBaseJavaModule {
 
             ;
         };
-        this.getActivity().runOnUiThread(runnable);
+        this.cordova.getActivity().runOnUiThread(runnable);
     }
 
     /**
@@ -292,7 +284,7 @@ public class Notification extends ReactContextBaseJavaModule {
     public synchronized void confirm(final String message, final String title, final JSONArray buttonLabels, final CallbackContext callbackContext) {
         Runnable runnable = new Runnable() {
             public void run() {
-                AlertDialog.Builder dlg = createDialog(); // new AlertDialog.Builder(this.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+                AlertDialog.Builder dlg = createDialog(); // new AlertDialog.Builder(this.cordova.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
                 dlg.setMessage(message);
                 dlg.setTitle(title);
                 dlg.setCancelable(false);
@@ -350,7 +342,7 @@ public class Notification extends ReactContextBaseJavaModule {
 
             ;
         };
-        this.getActivity().runOnUiThread(runnable);
+        this.cordova.getActivity().runOnUiThread(runnable);
     }
 
     /**
@@ -366,12 +358,12 @@ public class Notification extends ReactContextBaseJavaModule {
      * @param callbackContext The callback context.
      */
     public synchronized void prompt(final String message, final String title, final JSONArray buttonLabels, final String defaultText, final CallbackContext callbackContext) {
-        final Activity activity = this.getActivity();
+        final Activity activity = this.cordova.getActivity();
         Runnable runnable = new Runnable() {
             public void run() {
                 final EditText promptInput = new EditText(activity);
                 promptInput.setHint(defaultText);
-                AlertDialog.Builder dlg = createDialog(); // new AlertDialog.Builder(this.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+                AlertDialog.Builder dlg = createDialog(); // new AlertDialog.Builder(this.cordova.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
                 dlg.setMessage(message);
                 dlg.setTitle(title);
                 dlg.setCancelable(false);
@@ -457,7 +449,7 @@ public class Notification extends ReactContextBaseJavaModule {
 
             ;
         };
-        this.getActivity().runOnUiThread(runnable);
+        this.cordova.getActivity().runOnUiThread(runnable);
     }
 
     /**
@@ -474,7 +466,7 @@ public class Notification extends ReactContextBaseJavaModule {
         final Notification notification = this;
         Runnable runnable = new Runnable() {
             public void run() {
-                notification.spinnerDialog = createProgressDialog(); // new ProgressDialog(this.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+                notification.spinnerDialog = createProgressDialog(); // new ProgressDialog(this.cordova.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
                 notification.spinnerDialog.setTitle(title);
                 notification.spinnerDialog.setMessage(message);
                 notification.spinnerDialog.setCancelable(false);
@@ -488,7 +480,7 @@ public class Notification extends ReactContextBaseJavaModule {
                 notification.spinnerDialog.show();
             }
         };
-        this.getActivity().runOnUiThread(runnable);
+        this.cordova.getActivity().runOnUiThread(runnable);
     }
 
     /**
@@ -515,7 +507,7 @@ public class Notification extends ReactContextBaseJavaModule {
         final Notification notification = this;
         Runnable runnable = new Runnable() {
             public void run() {
-                notification.progressDialog = createProgressDialog(); // new ProgressDialog(this.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+                notification.progressDialog = createProgressDialog(); // new ProgressDialog(this.cordova.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
                 notification.progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 notification.progressDialog.setTitle(title);
                 notification.progressDialog.setMessage(message);
@@ -531,7 +523,7 @@ public class Notification extends ReactContextBaseJavaModule {
                 notification.progressDialog.show();
             }
         };
-        this.getActivity().runOnUiThread(runnable);
+        this.cordova.getActivity().runOnUiThread(runnable);
     }
 
     /**
@@ -559,9 +551,9 @@ public class Notification extends ReactContextBaseJavaModule {
     private AlertDialog.Builder createDialog() {
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         if (currentapiVersion >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-            return new AlertDialog.Builder(this.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+            return new AlertDialog.Builder(this.cordova.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         } else {
-            return new AlertDialog.Builder(this.getActivity());
+            return new AlertDialog.Builder(this.cordova.getActivity());
         }
     }
 
@@ -569,9 +561,9 @@ public class Notification extends ReactContextBaseJavaModule {
     private ProgressDialog createProgressDialog() {
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         if (currentapiVersion >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            return new ProgressDialog(this.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+            return new ProgressDialog(this.cordova.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         } else {
-            return new ProgressDialog(this.getActivity());
+            return new ProgressDialog(this.cordova.getActivity());
         }
     }
 

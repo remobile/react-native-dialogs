@@ -20,14 +20,18 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <AudioToolbox/AudioServices.h>
-#import "RCTBridgeModule.h"
+#import "CDVPlugin.h"
 
-@interface CDVNotification : NSObject <RCTBridgeModule, UIAlertViewDelegate>{}
+@interface CDVNotification : CDVPlugin <UIAlertViewDelegate>{}
+
+- (void)alert:(CDVInvokedUrlCommand*)command;
+- (void)confirm:(CDVInvokedUrlCommand*)command;
+- (void)prompt:(CDVInvokedUrlCommand*)command;
+- (void)beep:(CDVInvokedUrlCommand*)command;
 
 @end
 
-@class CDVCommandDelegateImpl;
 @interface CDVAlertView : UIAlertView {}
-@property (nonatomic, strong) CDVCommandDelegateImpl* commandDelegate;
+@property (nonatomic, strong) CDVInvokedUrlCommand* callbackId;
 
 @end

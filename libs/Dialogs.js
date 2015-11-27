@@ -104,7 +104,7 @@ var Dialogs = {
     */
     beep: function(count) {
         var defaultedCount = count || 1;
-        CRTDialogs.beep([defaultedCount]);
+        CRTDialogs._beep([defaultedCount]);
     }
 };
 
