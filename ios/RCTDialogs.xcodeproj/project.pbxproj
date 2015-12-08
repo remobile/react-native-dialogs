@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		32285F5E1BFC031100AD8363 /* CDVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 32285F581BFC031100AD8363 /* CDVNotification.m */; };
+		32F41D461C167329004A090F /* CDVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 32F41D451C167329004A090F /* CDVNotification.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,9 +23,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		32285F3C1BFC01E400AD8363 /* libCRTDialogs.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCRTDialogs.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		32285F571BFC031100AD8363 /* CDVNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDVNotification.h; sourceTree = "<group>"; };
-		32285F581BFC031100AD8363 /* CDVNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDVNotification.m; sourceTree = "<group>"; };
+		32285F3C1BFC01E400AD8363 /* libRCTDialogs.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRCTDialogs.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		32F41D431C167329004A090F /* CDVNotification.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = CDVNotification.bundle; path = RCTDialogs/CDVNotification.bundle; sourceTree = SOURCE_ROOT; };
+		32F41D441C167329004A090F /* CDVNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVNotification.h; path = RCTDialogs/CDVNotification.h; sourceTree = SOURCE_ROOT; };
+		32F41D451C167329004A090F /* CDVNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVNotification.m; path = RCTDialogs/CDVNotification.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,7 +43,7 @@
 		32285F331BFC01E400AD8363 = {
 			isa = PBXGroup;
 			children = (
-				32285F3E1BFC01E400AD8363 /* CRTDialogs */,
+				32285F3E1BFC01E400AD8363 /* RCTDialogs */,
 				32285F3D1BFC01E400AD8363 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,26 +51,27 @@
 		32285F3D1BFC01E400AD8363 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				32285F3C1BFC01E400AD8363 /* libCRTDialogs.a */,
+				32285F3C1BFC01E400AD8363 /* libRCTDialogs.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		32285F3E1BFC01E400AD8363 /* CRTDialogs */ = {
+		32285F3E1BFC01E400AD8363 /* RCTDialogs */ = {
 			isa = PBXGroup;
 			children = (
-				32285F571BFC031100AD8363 /* CDVNotification.h */,
-				32285F581BFC031100AD8363 /* CDVNotification.m */,
+				32F41D431C167329004A090F /* CDVNotification.bundle */,
+				32F41D441C167329004A090F /* CDVNotification.h */,
+				32F41D451C167329004A090F /* CDVNotification.m */,
 			);
-			path = CRTDialogs;
+			path = RCTDialogs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		32285F3B1BFC01E400AD8363 /* CRTDialogs */ = {
+		32285F3B1BFC01E400AD8363 /* RCTDialogs */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 32285F501BFC01E400AD8363 /* Build configuration list for PBXNativeTarget "CRTDialogs" */;
+			buildConfigurationList = 32285F501BFC01E400AD8363 /* Build configuration list for PBXNativeTarget "RCTDialogs" */;
 			buildPhases = (
 				32285F381BFC01E400AD8363 /* Sources */,
 				32285F391BFC01E400AD8363 /* Frameworks */,
@@ -79,9 +81,9 @@
 			);
 			dependencies = (
 			);
-			name = CRTDialogs;
-			productName = CRTDialogs;
-			productReference = 32285F3C1BFC01E400AD8363 /* libCRTDialogs.a */;
+			name = RCTDialogs;
+			productName = RCTDialogs;
+			productReference = 32285F3C1BFC01E400AD8363 /* libRCTDialogs.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -98,7 +100,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 32285F371BFC01E400AD8363 /* Build configuration list for PBXProject "CRTDialogs" */;
+			buildConfigurationList = 32285F371BFC01E400AD8363 /* Build configuration list for PBXProject "RCTDialogs" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -110,7 +112,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				32285F3B1BFC01E400AD8363 /* CRTDialogs */,
+				32285F3B1BFC01E400AD8363 /* RCTDialogs */,
 			);
 		};
 /* End PBXProject section */
@@ -120,7 +122,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32285F5E1BFC031100AD8363 /* CDVNotification.m in Sources */,
+				32F41D461C167329004A090F /* CDVNotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,7 +252,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		32285F371BFC01E400AD8363 /* Build configuration list for PBXProject "CRTDialogs" */ = {
+		32285F371BFC01E400AD8363 /* Build configuration list for PBXProject "RCTDialogs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				32285F4E1BFC01E400AD8363 /* Debug */,
@@ -259,7 +261,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		32285F501BFC01E400AD8363 /* Build configuration list for PBXNativeTarget "CRTDialogs" */ = {
+		32285F501BFC01E400AD8363 /* Build configuration list for PBXNativeTarget "RCTDialogs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				32285F511BFC01E400AD8363 /* Debug */,
