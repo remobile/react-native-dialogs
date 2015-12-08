@@ -27,7 +27,7 @@ var {
     Platform,
 } = React;
 
-var CRTDialogs= NativeModules.Dialogs;
+var RCTDialogs= NativeModules.Dialogs;
 
 /**
 * Provides access to notifications on the device.
@@ -46,7 +46,7 @@ var Dialogs = {
         var _title = (title || "Alert");
         var _buttonLabel = (buttonLabel || "OK");
         completeCallback = completeCallback || function() {};
-        CRTDialogs.alert([message, _title, _buttonLabel], completeCallback);
+        RCTDialogs.alert([message, _title, _buttonLabel], completeCallback);
     },
 
     /**
@@ -72,7 +72,7 @@ var Dialogs = {
             _buttonLabels = _buttonLabels.split(","); // not crazy about changing the var type here
         }
 
-        CRTDialogs.confirm([message, _title, _buttonLabels], resultCallback);
+        RCTDialogs.confirm([message, _title, _buttonLabels], resultCallback);
     },
 
     /**
@@ -93,7 +93,7 @@ var Dialogs = {
         var _buttonLabels = (buttonLabels || ["OK","Cancel"]);
         var _defaultText = (defaultText || "");
         resultCallback = resultCallback || function() {};
-        CRTDialogs.prompt([_message, _title, _buttonLabels, _defaultText], resultCallback);
+        RCTDialogs.prompt([_message, _title, _buttonLabels, _defaultText], resultCallback);
     },
 
     /**
@@ -104,7 +104,7 @@ var Dialogs = {
     */
     beep: function(count) {
         var defaultedCount = count || 1;
-        CRTDialogs._beep([defaultedCount]);
+        RCTDialogs._beep([defaultedCount]);
     }
 };
 
@@ -117,14 +117,14 @@ if (Platform.OS === 'android') {
                 title = "Busy";
                 message = 'Please wait...';
             }
-            CRTDialogs.activityStart([ title, message ]);
+            RCTDialogs.activityStart([ title, message ]);
         },
 
         /**
         * Close an activity dialog
         */
         activityStop : function() {
-            CRTDialogs.activityStop([]);
+            RCTDialogs.activityStop([]);
         },
 
         /**
@@ -136,14 +136,14 @@ if (Platform.OS === 'android') {
         *            message Message to display in the dialog.
         */
         progressStart : function(title, message) {
-            CRTDialogs.progressStart([ title, message ]);
+            RCTDialogs.progressStart([ title, message ]);
         },
 
         /**
         * Close the progress dialog.
         */
         progressStop : function() {
-            CRTDialogs.progressStop([]);
+            RCTDialogs.progressStop([]);
         },
 
         /**
@@ -153,7 +153,7 @@ if (Platform.OS === 'android') {
         *            value 0-100
         */
         progressValue : function(value) {
-            CRTDialogs.progressValue([value]);
+            RCTDialogs.progressValue([value]);
         }
     });
 }
