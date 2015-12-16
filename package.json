@@ -1,6 +1,6 @@
 {
     "name": "@remobile/react-native-dialogs",
-        "version": "1.0.2",
+        "version": "1.0.3",
         "description": "A dialogs for react-native, code come from cordova, support for android and ios",
         "main": "index.js",
         "author": {
