@@ -224,12 +224,14 @@ static void soundCompletionCallback(SystemSoundID  ssid, void* data) {
 }
 
 -(void)presentAlertcontroller {
-    [[CDVPlugin presentViewController] presentViewController:[alertList firstObject] animated:YES completion:^{
-        [alertList removeObject:[alertList firstObject]];
-        if ([alertList count]>0) {
-            [self presentAlertcontroller];
-        }
-    }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[CDVPlugin presentViewController] presentViewController:[alertList firstObject] animated:YES completion:^{
+            [alertList removeObject:[alertList firstObject]];
+            if ([alertList count]>0) {
+                [self presentAlertcontroller];
+            }
+        }];
+    });
     
 }
 
