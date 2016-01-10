@@ -32,7 +32,7 @@ dependencies {
 * register module (in MainActivity.java)
 
 ```java
-import com.remobile.filetransfer.*;  // <--- import
+import com.remobile.dialogs.*;  // <--- import
 
 public class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {
   ......
@@ -46,7 +46,7 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
       .setBundleAssetName("index.android.bundle")
       .setJSMainModuleName("index.android")
       .addPackage(new MainReactPackage())
-      .addPackage(new RCTDialogsPackage())              // <------ add here
+      .addPackage(new RCTDialogsPackage(this))              // <------ add here, the `this` is super important
       .setUseDeveloperSupport(BuildConfig.DEBUG)
       .setInitialLifecycleState(LifecycleState.RESUMED)
       .build();
