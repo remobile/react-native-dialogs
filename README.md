@@ -16,7 +16,7 @@ npm install @remobile/react-native-dialogs --save
 ```gradle
 ...
 include ':react-native-dialogs'
-project(':react-native-dialogs').projectDir = new File(rootProject.projectDir, '../node_modules/@remobile/react-native-dialogs/android')
+project(':react-native-dialogs').projectDir = new File(settingsDir, '../node_modules/@remobile/react-native-dialogs/android')
 ```
 
 * In `android/app/build.gradle`
@@ -29,46 +29,32 @@ dependencies {
 }
 ```
 
-* register module (in MainActivity.java)
+* register module (in MainApplication.java)
 
 ```java
-import com.remobile.filetransfer.*;  // <--- import
+......
+import com.remobile.dialogs.RCTDialogsPackage;  // <--- import
 
-public class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {
-  ......
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    mReactRootView = new ReactRootView(this);
+......
 
-    mReactInstanceManager = ReactInstanceManager.builder()
-      .setApplication(getApplication())
-      .setBundleAssetName("index.android.bundle")
-      .setJSMainModuleName("index.android")
-      .addPackage(new MainReactPackage())
-      .addPackage(new RCTDialogsPackage())              // <------ add here
-      .setUseDeveloperSupport(BuildConfig.DEBUG)
-      .setInitialLifecycleState(LifecycleState.RESUMED)
-      .build();
-
-    mReactRootView.startReactApplication(mReactInstanceManager, "ExampleRN", null);
-
-    setContentView(mReactRootView);
-  }
-
-  ......
+@Override
+protected List<ReactPackage> getPackages() {
+   ......
+   new RCTDialogsPackage(),            // <------ add here
+   ......
 }
-```
+
 
 ## Usage
 
 ### Example
 ```js
-var React = require('react-native');
+var React = require('react');
+var ReactNative = require('react-native');
 var {
     StyleSheet,
     View,
-} = React;
+} = ReactNative;
 
 var Dialogs = require('@remobile/react-native-dialogs');
 var Button = require('@remobile/react-native-simple-button');
@@ -165,3 +151,7 @@ var styles = StyleSheet.create({
 
 ### thanks
 * this project come from https://github.com/apache/cordova-plugin-dialogs
+
+
+### see detail use
+* https://github.com/remobile/react-native-template
