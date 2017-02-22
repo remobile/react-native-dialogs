@@ -1,6 +1,6 @@
 {
     "name": "@remobile/react-native-dialogs",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "A dialogs for react-native, code come from cordova, support for android and ios",
     "main": "index.js",
     "author": {
@@ -30,6 +30,6 @@
         "url": "git://github.com/remobile/react-native-dialogs.git"
     },
     "peerDependencies": {
-        "@remobile/react-native-cordova": "^1.1.0"
+        "@remobile/react-native-cordova": "^1.1.1"
     }
 }
