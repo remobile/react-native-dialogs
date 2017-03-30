@@ -19,7 +19,7 @@
  *
 */
 
-var exec = require('@remobile/react-native-cordova').exec;
+const exec = require('@remobile/react-native-cordova').exec;
 
 /**
  * Provides Android enhanced notification API.
